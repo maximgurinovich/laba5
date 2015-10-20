@@ -1,30 +1,68 @@
 #include <iostream>
 using namespace std;
+
 int testnum = 1;
+
 bool prog(char* stroka)
 {
-	int a = 0, b = 0, c = 0;
+	char s[100] = { 0 };
+	int uk = 0;
+	bool flag = false;
 	for (int i = 0; i < strlen(stroka); i++)
 	{
-		if (stroka[i] == '(')
-			a++;
-		if (stroka[i] == '[')
-			b++;
-		if (stroka[i] == '{')
-			c++;
-		if (stroka[i] == ')')
-			a--;
-		if (stroka[i] == ']')
-			b--;
-		if (stroka[i] == '}')
-			c--;
-		if (a < 0 || b < 0 || c < 0)
+		if (stroka[i] == '[' || stroka[i] == '(' || stroka[i] == '{')
 		{
-			return false;
-			break;
+			s[uk] = stroka[i];
+			uk++;
+		}
+		else
+		{
+			if (uk == 0 && (stroka[i] == ']' || stroka[i] == ')' || stroka[i] == '}'))
+			{
+				return false;
+				flag = true;
+				break;
+			}
+
+			if (stroka[i] == ']')
+			{
+				if (s[uk - 1] == '[')
+					uk--;
+				else
+				{
+					return false;
+					flag = true;
+					break;
+				}
+			}
+
+			if (stroka[i] == ')')
+			{
+				if (s[uk - 1] == '(')
+					uk--;
+				else
+				{
+					return false;
+					flag = true;
+					break;
+				}
+			}
+
+			if (stroka[i] == '}')
+			{
+				if (s[uk - 1] == '{')
+					uk--;
+				else
+				{
+					return false;
+					flag = true;
+					break;
+				}
+			}
 		}
 	}
-	if (a != 0 || b != 0 || c != 0)
+	if (flag == false)
+	if (uk != 0)
 		return false;
 	else return true;
 }
