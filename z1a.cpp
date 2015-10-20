@@ -36,14 +36,14 @@ void addtohead(Node* &head, char a)
 	}
 }
 
-bool check (char* s)
+bool check(char* s)
 {
 	answer = true;
 	head->value = 0;
 	head->next = NULL;
 	for (unsigned int i = 0; i < strlen(s) && answer; i++)
 	{
-		if (!strchr("([{}])",s[i]));
+		if (!strchr("([{}])", s[i]));
 		else if ((s[i] - head->value) <= 2 && (s[i] - head->value)>0)
 			deletehead(head);
 		else if (strchr("}])", s[i]))
@@ -55,7 +55,22 @@ bool check (char* s)
 	return answer;
 }
 
+void test(bool flag, bool ans)
+{
+	if (flag == ans)
+		cout << "OK" << endl;
+	else cout << "Fail" << endl;
+}
+
 int main()
 {
+
+
+	test(check("()()()(){}{}({}())"), true);
+	test(check("((((({}{}[(){}])))))"), true);
+	test(check(")"), false);
+	test(check("{()}{"), false);
+	test(check("}()()(){([])}"), false);
+	test(check("{}{}(){}{{{{{{{[]}}}}}}"), false);
 	return 0;
 }
