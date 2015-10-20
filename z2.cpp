@@ -15,9 +15,9 @@ int ans(char* s)
 		if (s[i] == 'a') a[total++] = 11;
 	}
 	cur = total - 2;
-	while (total!=1 && --cur>=0)
+	while (total != 1 && --cur >= 0)
 	{
-		if (a[cur] >=10)
+		if (a[cur] >= 10)
 		{
 			if (a[cur] == 10)
 				a[cur] = min(a[cur + 1], a[cur + 2]);
@@ -30,7 +30,19 @@ int ans(char* s)
 	}
 	return a[0];
 }
+void test(int ans, int myans)
+{
+	if (ans == myans)
+		cout << "OK" << endl;
+	else
+		cout << "Fail" << endl;
+}
 int main()
 {
+	test(ans("max(3,max(min(9,3),8))"), 8);
+	test(ans("max(7,min(max(2,3),min(8,7)))"), 7);
+	test(ans("min(3,max(5,min(max(9,8),8)))"), 3);
+	test(ans("max(3,max(5,min(max(9,8),8)))"), 8);
+	test(ans("min(max(6,min(9,8)),max(2,3))"), 3);
 	return 0;
 }
